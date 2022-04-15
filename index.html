@@ -10,7 +10,76 @@
 
 <body>
     <script>
-        console.log("Hello World");
+
+
+        function computerPlay() {
+            pics = ["Rock", "Paper", "Scissors"];
+            return pics[Math.floor(Math.random() * 3)];
+        }
+
+        function playRound(playerSelection, computerSelection) {
+
+            playerSelection = playerSelection.toLowerCase();
+            computerSelection = computerSelection.toLowerCase();
+
+            switch (playerSelection) {
+                case "scissors":
+                    if (computerSelection == "paper") {
+                        return "win";
+                    }
+                    else if (computerSelection == "rock") {
+                        return "loss";
+                    }
+                    return "It's a draw";
+                case "rock":
+                    if (computerSelection == "scissors") {
+                        return "win";
+                    }
+                    else if (computerSelection == "paper") {
+                        return "loss";
+                    }
+                    return "It's a draw";
+                case "paper":
+                    if (computerSelection == "rock") {
+                        return "win";
+                    }
+                    else if (computerSelection == "scissors") {
+                        return "loss";
+                    }
+                    return "draw";
+            }
+        }
+
+        function game(rounds) {
+            let playerWins = 0;
+            let computerWins = 0;
+            for (let i = 0; i < rounds; i++) {
+                const playerPick = prompt("Enter your play ('rock', 'paper' or 'scissors':")
+                const computerPick = computerPlay();
+                result = playRound(playerPick, computerPick);
+                if (result == "win") {
+                    console.log("You Win! " + playerPick + " beats " + computerPick);
+                    playerWins++;
+                }
+                else if (result == "loss") {
+                    console.log("You Lose! " + computerPick + " beats " + playerPick);
+                    computerWins++;
+                }
+                else {
+                    console.log("It's a draw. Play again!");
+                    i--;
+                }
+            }
+            if (playerWins > computerWins) {
+                console.log("You win with a score of " + playerWins + " to " + computerWins);
+            }
+            else {
+                console.log("You lose with a score of " + computerWins + " to " + playerWins);
+            }
+        }
+
+        console.log(game(5));
+
     </script>
 </body>
 

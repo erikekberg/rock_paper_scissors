@@ -6,11 +6,65 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <style>
+        button {
+            height: 200px;
+            width: 200px;
+            color: black;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        .txt {
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
+    <div class="container">
+        <button class="rock">Rock</button>
+        <button class="paper">Paper</button>
+        <button class="scissors">Scissors</button>
+    </div>
+
+    <div class="txt"></div>
+
+
     <script>
 
+        const buttons = document.querySelectorAll("button");
+        const txt = document.querySelector(".txt");
+
+        playerWins = 0;
+        computerWins = 0;
+
+        function getPlayerPick(e) {
+            const result = playRound(e.target.className, computerPlay());
+
+            if (result === "win") {
+                playerWins++;
+            }
+            else if (result === "loss") {
+                computerWins++;
+            }
+
+            const para = document.createElement("p");
+            para.textContent = `${result}, the score is ${playerWins} to ${computerWins}. `;
+            if (computerWins >= 5) {
+                para.textContent += "Too bad, the computer won this time";
+            } else if (playerWins >= 5) {
+                para.textContent += "Congratulations! You won the game!";
+            }
+            txt.appendChild(para);
+        }
+
+        buttons.forEach(button => button.addEventListener("click", getPlayerPick))
 
         function computerPlay() {
             pics = ["Rock", "Paper", "Scissors"];
@@ -77,8 +131,6 @@
                 console.log("You lose with a score of " + computerWins + " to " + playerWins);
             }
         }
-
-        console.log(game(5));
 
     </script>
 </body>
